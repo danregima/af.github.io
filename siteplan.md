@@ -30,7 +30,7 @@ This document outlines the structure and organization of the RegimA Africa websi
 ├── contact.html (Contact Us)
 ├── faq.html (FAQs)
 ├── testimonials.html (Testimonials)
-├── sources/ (Source files and assets)
+├── original/ (Original source files and assets)
 ├── assets/ (Images, CSS, JS)
 └── docs/ (Documentation)
 ```

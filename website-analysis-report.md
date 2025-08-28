@@ -10,43 +10,43 @@ The following pages are currently available on the website:
 
 1. **Home Page** (`index.html`) - 6.7MB
    - Status: ✅ Present
-   - Source: `sources/Home.html`
+   - Source: `original/Home.html`
    - Description: Main landing page with company overview
    - Size: Large file size indicates rich content/media
 
 2. **About Us** (`about.html`) - 4.3MB  
    - Status: ✅ Present
-   - Source: `sources/About Us.html`
+   - Source: `original/About Us.html`
    - Description: Company information and background
    - Size: Moderate size with likely multimedia content
 
 3. **Products** (`products.html`) - 4.5MB
    - Status: ✅ Present
-   - Source: `sources/Products.html`
+   - Source: `original/Products.html`
    - Description: Product catalog and services
    - Size: Good size for product showcase
 
 4. **Blog** (`blog.html`) - 8.8MB
    - Status: ✅ Present
-   - Source: `sources/Blog.html`
+   - Source: `original/Blog.html`
    - Description: News, updates, and articles
    - Size: Largest content page, likely contains multiple articles
 
 5. **Contact Us** (`contact.html`) - 4.5MB
    - Status: ✅ Present
-   - Source: `sources/Contact Us.html`
+   - Source: `original/Contact Us.html`
    - Description: Contact information and forms
    - Size: Moderate size, possibly with interactive elements
 
 6. **FAQs** (`faq.html`) - 3.2MB
    - Status: ✅ Present
-   - Source: `sources/FAQs.html`
+   - Source: `original/FAQs.html`
    - Description: Frequently asked questions
    - Size: Smallest content page
 
 7. **Testimonials** (`testimonials.html`) - 75MB
    - Status: ✅ Present
-   - Source: `sources/Testimonials.html`
+   - Source: `original/Testimonials.html`
    - Description: Customer testimonials and reviews
    - Size: ⚠️ **EXTREMELY LARGE** - needs optimization
 
@@ -54,7 +54,7 @@ The following pages are currently available on the website:
 
 ### ✅ Completed Actions
 1. **Created Site Plan** - Documented site structure in `siteplan.md`
-2. **Organized Source Files** - Moved original files to `sources/` directory
+2. **Organized Source Files** - Moved original files to `original/` directory
 3. **Renamed Files** - Applied consistent naming convention:
    - `Home.html` → `index.html`
    - `About Us.html` → `about.html`
@@ -73,7 +73,7 @@ af.github.io/
 ├── faq.html            (FAQs - 3.2MB)
 ├── testimonials.html   (Testimonials - 75MB)
 ├── siteplan.md         (Site planning document)
-└── sources/            (Original source files)
+└── original/            (Original source files)
     ├── Home.html
     ├── About Us.html
     ├── Products.html
