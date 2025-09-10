@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RégimA Product Agents - Distributed Cognitive Beauty Network</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            min-height: 600px;
+        }
+
+        .sidebar {
+            background: #f8f9fa;
+            border-right: 1px solid #e9ecef;
+            padding: 20px;
+        }
+
+        .product-list {
+            margin-bottom: 20px;
+        }
+
+        .product-list h3 {
+            color: #495057;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .product-item {
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .product-item:hover {
+            border-color: #ff6b6b;
+            box-shadow: 0 4px 12px rgba(255, 107, 107, 0.15);
+        }
+
+        .product-item.active {
+            border-color: #ff6b6b;
+            background: #fff5f5;
+        }
+
+        .product-name {
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 4px;
+        }
+
+        .product-category {
+            font-size: 0.8em;
+            color: #718096;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .chat-area {
+            display: flex;
+            flex-direction: column;
+            height: 600px;
+        }
+
+        .chat-header {
+            background: #2d3748;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .agent-status {
+            background: #4caf50;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            display: inline-block;
+            margin-top: 8px;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: #fafafa;
+        }
+
+        .message {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .message.user {
+            justify-content: flex-end;
+        }
+
+        .message-content {
+            max-width: 70%;
+            padding: 12px 16px;
+            border-radius: 18px;
+            position: relative;
+        }
+
+        .message.user .message-content {
+            background: #ff6b6b;
+            color: white;
+            border-bottom-right-radius: 6px;
+        }
+
+        .message.agent .message-content {
+            background: white;
+            color: #2d3748;
+            border: 1px solid #e2e8f0;
+            border-bottom-left-radius: 6px;
+        }
+
+        .message-time {
+            font-size: 0.7em;
+            opacity: 0.7;
+            margin-top: 4px;
+        }
+
+        .chat-input {
+            border-top: 1px solid #e2e8f0;
+            padding: 20px;
+            background: white;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 25px;
+            outline: none;
+            font-size: 1em;
+        }
+
+        .chat-input input:focus {
+            border-color: #ff6b6b;
+        }
+
+        .send-btn {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+
+        .send-btn:hover {
+            background: #ee5a52;
+        }
+
+        .send-btn:disabled {
+            background: #cbd5e0;
+            cursor: not-allowed;
+        }
+
+        .loading {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #718096;
+        }
+
+        .loading-dots {
+            display: flex;
+            gap: 4px;
+        }
+
+        .loading-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #718096;
+            animation: pulse 1.5s infinite;
+        }
+
+        .loading-dot:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+
+        .loading-dot:nth-child(3) {
+            animation-delay: 1s;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        .welcome-message {
+            text-align: center;
+            padding: 40px;
+            color: #718096;
+        }
+
+        .welcome-message h3 {
+            margin-bottom: 16px;
+            color: #2d3748;
+        }
+
+        .network-info {
+            background: #e6fffa;
+            border: 1px solid #81e6d9;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 16px;
+            font-size: 0.9em;
+        }
+
+        .network-status {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .status-label {
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        .status-value {
+            color: #718096;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                border-right: none;
+                border-bottom: 1px solid #e9ecef;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>RégimA Product Agents</h1>
+            <p>Distributed Cognitive Beauty Network - Chat with AI-Powered Product Experts</p>
+        </div>
+
+        <div class="main-content">
+            <div class="sidebar">
+                <div class="network-info">
+                    <div class="network-status">
+                        <span class="status-label">Network Status:</span>
+                        <span class="status-value" id="network-status">Initializing...</span>
+                    </div>
+                    <div class="network-status">
+                        <span class="status-label">Active Agents:</span>
+                        <span class="status-value" id="agent-count">0</span>
+                    </div>
+                </div>
+
+                <div class="product-list">
+                    <h3>🤖 Product Agents</h3>
+                    <div id="product-list">
+                        <div class="loading">
+                            <span>Loading product agents...</span>
+                            <div class="loading-dots">
+                                <div class="loading-dot"></div>
+                                <div class="loading-dot"></div>
+                                <div class="loading-dot"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-area">
+                <div class="chat-header">
+                    <div id="current-agent">
+                        <h3>Select a Product Agent</h3>
+                        <div class="agent-status" style="background: #cbd5e0;">Ready to Chat</div>
+                    </div>
+                </div>
+
+                <div class="chat-messages" id="chat-messages">
+                    <div class="welcome-message">
+                        <h3>Welcome to the RégimA Cognitive Product Network! 🧠✨</h3>
+                        <p>Select a product agent from the sidebar to start a conversation.</p>
+                        <p>Each product is now a distributed cognitive agent that can discuss its properties, benefits, and collaborate with other products in the network.</p>
+                    </div>
+                </div>
+
+                <div class="chat-input">
+                    <div class="input-group">
+                        <input 
+                            type="text" 
+                            id="message-input" 
+                            placeholder="Ask about benefits, usage, or get recommendations..." 
+                            disabled
+                        >
+                        <button class="send-btn" id="send-btn" disabled>Send</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class ProductAgentInterface {
+            constructor() {
+                this.currentAgent = null;
+                this.agents = new Map();
+                this.isLoading = false;
+                
+                this.initializeElements();
+                this.setupEventListeners();
+                this.loadProductAgents();
+            }
+
+            initializeElements() {
+                this.productList = document.getElementById('product-list');
+                this.chatMessages = document.getElementById('chat-messages');
+                this.messageInput = document.getElementById('message-input');
+                this.sendBtn = document.getElementById('send-btn');
+                this.currentAgentEl = document.getElementById('current-agent');
+                this.networkStatus = document.getElementById('network-status');
+                this.agentCount = document.getElementById('agent-count');
+            }
+
+            setupEventListeners() {
+                this.sendBtn.addEventListener('click', () => this.sendMessage());
+                this.messageInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter' && !this.isLoading) {
+                        this.sendMessage();
+                    }
+                });
+            }
+
+            async loadProductAgents() {
+                try {
+                    // Simulate loading product agents data
+                    // In a real implementation, this would fetch from the Python backend
+                    await this.simulateAgentLoad();
+                    
+                    this.networkStatus.textContent = 'Connected';
+                    this.networkStatus.style.color = '#4caf50';
+                    this.agentCount.textContent = this.agents.size;
+                    
+                } catch (error) {
+                    console.error('Failed to load agents:', error);
+                    this.networkStatus.textContent = 'Error';
+                    this.networkStatus.style.color = '#f44336';
+                }
+            }
+
+            async simulateAgentLoad() {
+                // Simulated product agents data
+                const mockAgents = [
+                    {
+                        name: "Acne Attack Pro-Masque",
+                        category: "acne",
+                        functions: ["acne-treatment", "controls-oil", "deep-cleansing"],
+                        properties: ["professional-grade", "intensive"],
+                        persona: {
+                            communication_style: "solution-focused and encouraging",
+                            personality_traits: ["solution-focused", "understanding", "encouraging"]
+                        }
+                    },
+                    {
+                        name: "ANTI-INFLAMM-AGEING",
+                        category: "anti-ageing",
+                        functions: ["anti-aging", "reduces-fine-lines", "firms-skin"],
+                        properties: ["premium", "concentrated"],
+                        persona: {
+                            communication_style: "sophisticated and confidence-building",
+                            personality_traits: ["sophisticated", "confidence-building", "experienced"]
+                        }
+                    },
+                    {
+                        name: "Daily Ultra Defence",
+                        category: "defence",
+                        functions: ["environmental-protection", "barrier-protection"],
+                        properties: ["daily-use", "gentle"],
+                        persona: {
+                            communication_style: "protective and reassuring",
+                            personality_traits: ["protective", "reliable", "caring"]
+                        }
+                    },
+                    {
+                        name: "Eye Opener Serum Revolution EYZ",
+                        category: "eye-care",
+                        functions: ["reduces-puffiness", "brightens-eye-area"],
+                        properties: ["concentrated", "gentle"],
+                        persona: {
+                            communication_style: "precise and caring",
+                            personality_traits: ["precise", "gentle", "expert"]
+                        }
+                    },
+                    {
+                        name: "Active Facial Oil",
+                        category: "oil",
+                        functions: ["hydrates-skin", "nourishes-skin"],
+                        properties: ["natural", "nourishing"],
+                        persona: {
+                            communication_style: "nurturing and holistic",
+                            personality_traits: ["nurturing", "natural", "holistic"]
+                        }
+                    }
+                ];
+
+                // Simulate loading delay
+                await new Promise(resolve => setTimeout(resolve, 1500));
+
+                // Create agent instances
+                mockAgents.forEach(agentData => {
+                    this.agents.set(agentData.name, {
+                        ...agentData,
+                        conversationHistory: [],
+                        status: 'active'
+                    });
+                });
+
+                this.renderProductList();
+            }
+
+            renderProductList() {
+                this.productList.innerHTML = '';
+
+                this.agents.forEach((agent, name) => {
+                    const productItem = document.createElement('div');
+                    productItem.className = 'product-item';
+                    productItem.innerHTML = `
+                        <div class="product-name">${name}</div>
+                        <div class="product-category">${agent.category.replace('-', ' ')}</div>
+                    `;
+                    
+                    productItem.addEventListener('click', () => this.selectAgent(name));
+                    this.productList.appendChild(productItem);
+                });
+            }
+
+            selectAgent(agentName) {
+                // Update active state
+                document.querySelectorAll('.product-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                event.currentTarget.classList.add('active');
+
+                this.currentAgent = this.agents.get(agentName);
+                
+                // Update chat header
+                this.currentAgentEl.innerHTML = `
+                    <h3>${agentName}</h3>
+                    <div class="agent-status">AI Agent • ${this.currentAgent.category.replace('-', ' ')}</div>
+                `;
+
+                // Enable input
+                this.messageInput.disabled = false;
+                this.sendBtn.disabled = false;
+                this.messageInput.placeholder = `Ask ${agentName} about benefits, usage, or recommendations...`;
+
+                // Load conversation history
+                this.renderMessages();
+
+                // Send initial greeting if no history
+                if (this.currentAgent.conversationHistory.length === 0) {
+                    this.addAgentMessage("Hello! I'm " + agentName + ". I'm here to help you with your skincare needs. What would you like to know about me?");
+                }
+            }
+
+            async sendMessage() {
+                const message = this.messageInput.value.trim();
+                if (!message || !this.currentAgent || this.isLoading) return;
+
+                // Add user message
+                this.addUserMessage(message);
+                this.messageInput.value = '';
+
+                // Show loading
+                this.isLoading = true;
+                this.sendBtn.disabled = true;
+                this.addLoadingMessage();
+
+                try {
+                    // Simulate API call to agent
+                    const response = await this.simulateAgentResponse(message);
+                    
+                    // Remove loading and add response
+                    this.removeLoadingMessage();
+                    this.addAgentMessage(response);
+                    
+                } catch (error) {
+                    this.removeLoadingMessage();
+                    this.addAgentMessage("I'm sorry, I'm having trouble processing that right now. Please try again.");
+                } finally {
+                    this.isLoading = false;
+                    this.sendBtn.disabled = false;
+                }
+            }
+
+            async simulateAgentResponse(message) {
+                // Simulate processing delay
+                await new Promise(resolve => setTimeout(resolve, 1000 + Math.random() * 2000));
+
+                const agent = this.currentAgent;
+                const messageLower = message.toLowerCase();
+
+                // Generate contextual responses based on agent properties
+                if (messageLower.includes('hello') || messageLower.includes('hi')) {
+                    const traits = agent.persona.personality_traits || [];
+                    if (traits.includes('sophisticated')) {
+                        return `Good day! I'm ${agent.name}, your sophisticated skincare companion. How may I assist you with your beauty regimen today?`;
+                    } else if (traits.includes('caring')) {
+                        return `Hello there! I'm ${agent.name}, and I'm here to care for your skin. What can I help you with today?`;
+                    } else {
+                        return `Hi! I'm ${agent.name}. I'm excited to help you with your skincare journey. What can I tell you about myself?`;
+                    }
+                }
+
+                if (messageLower.includes('benefits') || messageLower.includes('help')) {
+                    let response = `As ${agent.name}, I offer several key benefits:\n\n`;
+                    agent.functions.forEach((func, index) => {
+                        response += `• ${func.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}\n`;
+                    });
+                    response += `\nI'm particularly effective because I am ${agent.properties.join(', ')}.`;
+                    return response;
+                }
+
+                if (messageLower.includes('how') || messageLower.includes('use')) {
+                    const categoryUsage = {
+                        'acne': "Apply to clean skin, focusing on problem areas. Use 2-3 times per week initially.",
+                        'anti-ageing': "Apply to clean skin morning and evening. Gently pat in until absorbed.",
+                        'defence': "Apply generously 15 minutes before sun exposure. Reapply every 2 hours.",
+                        'eye-care': "Gently pat around the eye area using your ring finger. Avoid direct contact with eyes.",
+                        'oil': "Warm a few drops between your palms and gently press into skin."
+                    };
+                    
+                    const usage = categoryUsage[agent.category] || "Apply to clean skin as directed on packaging.";
+                    return `Here's how to use me effectively:\n\n${usage}\n\nStart slowly and adjust frequency based on your skin's response.`;
+                }
+
+                if (messageLower.includes('recommend') || messageLower.includes('other')) {
+                    return `Based on my network knowledge, I'd recommend exploring other agents in our collection! For ${agent.category} concerns, you might also like our related products. I can collaborate with other agents to give you personalized recommendations.`;
+                }
+
+                // Default response
+                return `That's a great question! As ${agent.name}, I specialize in ${agent.functions.slice(0, 2).join(' and ')}. I'm ${agent.persona.communication_style} and always here to help with your skincare concerns. Could you tell me more about what specific aspect you'd like to know about?`;
+            }
+
+            addUserMessage(message) {
+                const messageEl = this.createMessageElement(message, 'user');
+                this.chatMessages.appendChild(messageEl);
+                this.scrollToBottom();
+
+                // Store in conversation history
+                this.currentAgent.conversationHistory.push({
+                    type: 'user',
+                    message: message,
+                    timestamp: new Date().toISOString()
+                });
+            }
+
+            addAgentMessage(message) {
+                const messageEl = this.createMessageElement(message, 'agent');
+                this.chatMessages.appendChild(messageEl);
+                this.scrollToBottom();
+
+                // Store in conversation history
+                this.currentAgent.conversationHistory.push({
+                    type: 'agent', 
+                    message: message,
+                    timestamp: new Date().toISOString()
+                });
+            }
+
+            addLoadingMessage() {
+                const loadingEl = document.createElement('div');
+                loadingEl.className = 'message agent loading-message';
+                loadingEl.innerHTML = `
+                    <div class="message-content">
+                        <div class="loading">
+                            <span>${this.currentAgent.name} is thinking...</span>
+                            <div class="loading-dots">
+                                <div class="loading-dot"></div>
+                                <div class="loading-dot"></div>
+                                <div class="loading-dot"></div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                this.chatMessages.appendChild(loadingEl);
+                this.scrollToBottom();
+            }
+
+            removeLoadingMessage() {
+                const loadingMessage = this.chatMessages.querySelector('.loading-message');
+                if (loadingMessage) {
+                    loadingMessage.remove();
+                }
+            }
+
+            createMessageElement(message, type) {
+                const messageEl = document.createElement('div');
+                messageEl.className = `message ${type}`;
+                
+                const time = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                
+                messageEl.innerHTML = `
+                    <div class="message-content">
+                        ${message.replace(/\n/g, '<br>')}
+                        <div class="message-time">${time}</div>
+                    </div>
+                `;
+                
+                return messageEl;
+            }
+
+            renderMessages() {
+                this.chatMessages.innerHTML = '';
+                
+                this.currentAgent.conversationHistory.forEach(msg => {
+                    const messageEl = this.createMessageElement(msg.message, msg.type);
+                    this.chatMessages.appendChild(messageEl);
+                });
+                
+                this.scrollToBottom();
+            }
+
+            scrollToBottom() {
+                this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
+            }
+        }
+
+        // Initialize the interface when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            new ProductAgentInterface();
+        });
+    </script>
+</body>
+</html>
