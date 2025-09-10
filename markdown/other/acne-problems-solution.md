@@ -1,0 +1,11 @@
+# Acne - Problems and Solution!
+
+Acne is a dreadful experience to go through, it lowers one’s self-confidence and self-esteem, and it’s embarrassing to have to walk around knowing that people can distinctly see your acne, you know they are looking at you and you feel the judgement from every angle. Worst is, people have a tendency to assume that it’s because your skin is dirty, or it’s due to an unhealthy diet. This is not always the case, many times it is due to hormonal imbalance or stress. Having this as a teen is one thing because people understand that you are growing, and your body is going through changes. However, having it as an adult can be detrimental to your confidence, seriously affecting your professional and social lives, your ego, and you find yourself having to force yourself to get up in the morning to face the critical outside world. This is why the RégimA Zone Acne Attack ‘Pro Masque’ and Acne Attack Rescue Serum were created!
+
+We understand how much this can affect a person so we have striven to produce perfect formulations to help change more lives for people with different skin problems, Acne being one of those. Its seems that we have hit the nail on the head, with all these excellent before and after photos we have been receiving, we feel the need to share this brilliant news with you! We don’t need to try convincing you that it works, we just have to show you the results from our awesome customers!
+
+“Ever since I found out about RegimA, I have seen amazing improvements in my acne. After just a few weeks there were visible improvements. After a few months, most of my acne was gone. The Scar Repair Forte Serum works like magic.”
+
+“The results have boosted my confidence and self-esteem. I was able to enter the work environment without feeling like I was being judged on what my skin looked like”.
+
+It makes us proud to know that we are living by our logo, ‘Products That Change Lives’. We are Results Driven, as they say “The proof of the pudding is in the eating” just see for yourself!
